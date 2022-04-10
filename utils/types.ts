@@ -7,9 +7,21 @@ export interface IProduct {
   name: string
   id: number
   imageURL: string
-  materials?: IMaterial[]
+  materials: IMaterial[]
 }
 
 export interface IProductsList {
   products: IProduct[]
+}
+
+export enum Filter {
+  Owned = 'Owned',
+  NotOwned = 'Not Owned',
+  Craftable = 'Craftable',
+}
+
+export interface IFilter {
+  [Filter.Owned]: boolean
+  [Filter.NotOwned]: boolean
+  [Filter.Craftable]: boolean
 }

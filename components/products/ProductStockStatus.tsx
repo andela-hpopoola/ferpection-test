@@ -6,7 +6,9 @@ function ProductStockStatus({ quantity }: { quantity: number }) {
       <span className="font-bold text-teal-700">{quantity}</span> in Stock
     </>
   ) : (
-    <>Out of Stock</>
+    <>
+      <span className="font-bold text-danger-700">Out</span> of Stock
+    </>
   );
 }
 
