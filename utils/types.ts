@@ -10,6 +10,10 @@ export interface IProduct {
   materials: IMaterial[]
 }
 
+export interface ICraftable extends IProduct {
+  count: number
+}
+
 export interface IProductsList {
   products: IProduct[]
 }

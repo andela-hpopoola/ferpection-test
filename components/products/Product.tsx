@@ -4,9 +4,11 @@ import React from 'react';
 import { getQuantity } from '@/utils/helpers';
 import { IProduct } from '@/utils/types';
 import ProductStockStatus from './ProductStockStatus';
+import CraftStatus from '../craftables/CraftStatus';
 
-export default function Product({ id, imageURL, name }: IProduct) {
+export default function Product({ id, imageURL, name, materials }: IProduct) {
   const quantity = getQuantity(id);
+
   return (
     <Link href={`/product/${id}`} passHref>
       <a className="relative transition-all border border-gray-200 rounded-lg group">
@@ -18,6 +20,7 @@ export default function Product({ id, imageURL, name }: IProduct) {
             width="256"
             height="256"
           />
+          <CraftStatus materials={materials} position="right-2 top-3" />
         </div>
         <div className="flex justify-between px-4 py-4 bg-white rounded-b-lg">
           <h3 className="w-2/3 overflow-hidden font-bold text-teal-700 text-ellipsis text-md group-hover:text-red-600">

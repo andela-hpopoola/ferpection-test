@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { getQuantity, storeQuantity } from '@/utils/helpers';
 import Button from '../forms/Button';
 import Input from '../forms/Input';
@@ -10,10 +11,16 @@ type Props = {
 
 function ProductForm({ id }: Props) {
   const [counter, setCounter] = React.useState(getQuantity(id) || 0);
+  const router = useRouter();
 
   const updateCounter = (count: number) => {
     const currentValue = count > 0 && !isNaN(count) ? count : 0;
     setCounter(currentValue);
+  };
+
+  const handleStoreQuantity = (id: number, quantity: number) => {
+    storeQuantity(id, counter);
+    router.push('/');
   };
 
   return (
@@ -26,7 +33,7 @@ function ProductForm({ id }: Props) {
       />
       <Pill text="+" onClick={() => updateCounter(counter + 1)} />
 
-      <Button onClick={() => storeQuantity(id, counter)}>Update</Button>
+      <Button onClick={() => handleStoreQuantity(id, counter)}>Update</Button>
     </div>
   );
 }

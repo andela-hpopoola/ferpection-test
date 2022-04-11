@@ -1,26 +1,33 @@
 import type { NextPage } from 'next';
 import { getAPIData } from '@/utils/api';
-import { IProduct } from '@/utils/types';
+import { ICraftable, IProduct } from '@/utils/types';
 import Image from 'next/image';
 import Breadcrumb from '@/components/layouts/Breadcrumb';
 import ProductForm from '@/components/products/ProductForm';
 import Content from '@/components/layouts/Content';
+import CraftStatus from '@/components/craftables/CraftStatus';
+import CraftableList from '@/components/craftables/CraftableList';
+import Link from 'next/link';
 
-const SingleProduct: NextPage<IProduct> = ({
-  id,
-  imageURL,
-  name,
-}: IProduct) => {
+interface Props {
+  product: IProduct;
+  craftableProducts: ICraftable[] | [];
+}
+
+const SingleProduct: NextPage<Props> = ({
+  product: { id, name, imageURL, materials },
+  craftableProducts,
+}: Props) => {
   return (
     <Content>
-      <section className="px-12 py-6 bg-white">
-        <div className="container flex mx-auto">
-          <main className="my-8">
-            <Breadcrumb name={name} />
-            <h1 className="mt-4 text-3xl text-sky-500">{name}</h1>
-            <div className="container mx-auto">
-              <div className="md:flex md:items-center">
-                <div className="w-full h-64 md:w-1/2">
+      <section className="py-6">
+        <main className="my-8">
+          <Breadcrumb name={name} />
+          <h1 className="my-2 text-3xl text-sky-500">{name}</h1>
+          <section className="container p-8 mx-auto bg-white rounded-lg">
+            <div className="flex">
+              <section className="w-full md:w-1/4">
+                <div className="bg-gray-200 rounded-lg">
                   <Image
                     src={imageURL}
                     alt={name}
@@ -29,21 +36,30 @@ const SingleProduct: NextPage<IProduct> = ({
                     height="256"
                   />
                 </div>
-                <div className="w-full max-w-lg mx-auto mt-5 md:ml-8 md:mt-0 md:w-1/2">
-                  <label
-                    htmlFor="custom-input-number"
-                    className="w-full text-sm font-semibold text-gray-700"
-                  >
-                    Quantity
-                  </label>
-                  <div className="flex mt-3">
-                    <ProductForm id={id} />
-                  </div>
+              </section>
+              <section className="relative w-full mx-auto mt-5 md:ml-8 md:mt-0 md:w-3/4">
+                <CraftStatus materials={materials} position="right-0 top-0" />
+                <label
+                  htmlFor="custom-input-number"
+                  className="w-full text-sm font-semibold text-teal-700"
+                >
+                  Quantity
+                </label>
+                <div className="flex mt-3">
+                  <ProductForm id={id} />
                 </div>
-              </div>
+                <CraftableList id={id} products={craftableProducts} />
+              </section>
             </div>
-          </main>
-        </div>
+          </section>
+          <footer className="mt-5">
+            <Link href="/" passHref>
+              <a className="pt-3 text-xl font-medium text-gray-400 hover:text-gray-500">
+                &larr; Back
+              </a>
+            </Link>
+          </footer>
+        </main>
       </section>
     </Content>
   );
@@ -55,7 +71,12 @@ export async function getStaticProps({ params }: { params: { id: String } }) {
   const products: IProduct[] = await getAPIData('/api/products');
 
   const product = products.find((p) => p.id.toString() === params.id);
-  return { props: { ...product } };
+  const craftableProducts: IProduct[] | [] =
+    product?.materials.map(({ productID, count }) => ({
+      ...products[productID - 1],
+      count,
+    })) || [];
+  return { props: { product, craftableProducts } };
 }
 
 export async function getStaticPaths() {
