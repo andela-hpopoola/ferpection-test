@@ -20,7 +20,7 @@ const SingleProduct: NextPage<Props> = ({
 }: Props) => {
   return (
     <Content>
-      <section className="py-6">
+      <section className="px-4 py-6 mx-auto sm:px-6 lg:px-8">
         <main className="my-8">
           <Breadcrumb name={name} />
           <h1 className="my-2 text-3xl text-sky-500">{name}</h1>

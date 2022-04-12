@@ -18,7 +18,7 @@ function ProductForm({ id }: Props) {
     setCounter(currentValue);
   };
 
-  const handleStoreQuantity = (id: number, quantity: number) => {
+  const handleStoreQuantity = (id: number, counter: number) => {
     storeQuantity(id, counter);
     router.push('/');
   };

@@ -14,6 +14,9 @@ export interface ICraftable extends IProduct {
   count: number
 }
 
+export interface ISelectedItems {
+  [id: number]: number;
+}
 export interface IProductsList {
   products: IProduct[]
 }

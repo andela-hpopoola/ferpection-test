@@ -2,7 +2,7 @@ import React from 'react';
 import { ICraftable } from '@/utils/types';
 import Craftable from './Craftable';
 import Button from '../forms/Button';
-import { craftProduct } from '@/utils/helpers';
+import { addItemsToCart, craftProduct } from '@/utils/helpers';
 import { useRouter } from 'next/router';
 
 function CraftableList({
@@ -13,8 +13,13 @@ function CraftableList({
   products: ICraftable[];
 }) {
   const router = useRouter();
-  const handleCrafting = (id: number, products: ICraftable[]) => {
-    craftProduct(id, products);
+  const handleCrafting = (id: number, craftable: ICraftable[]) => {
+    craftProduct(id, craftable);
+    router.push('/');
+  };
+
+  const addToCart = (craftable: ICraftable[]) => {
+    addItemsToCart(craftable);
     router.push('/');
   };
   return (
@@ -32,6 +37,9 @@ function CraftableList({
           </div>
 
           <div className="mt-5 text-right">
+            <Button outline={false} onClick={() => addToCart(products)}>
+              Add Items to Checklist
+            </Button>
             <Button onClick={() => handleCrafting(id, products)}>Craft</Button>
           </div>
         </>
