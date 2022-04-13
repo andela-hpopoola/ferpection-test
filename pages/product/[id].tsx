@@ -24,9 +24,9 @@ const SingleProduct: NextPage<Props> = ({
         <main className="my-8">
           <Breadcrumb name={name} />
           <h1 className="my-2 text-3xl text-sky-500">{name}</h1>
-          <section className="container p-8 mx-auto bg-white rounded-lg">
-            <div className="flex">
-              <section className="w-full md:w-1/4">
+          <section className="container p-8 pb-6 mx-auto bg-white rounded-lg">
+            <div className="flex flex-col lg:flex-row">
+              <section className="w-full lg:w-1/4">
                 <div className="bg-gray-200 rounded-lg">
                   <Image
                     src={imageURL}
@@ -37,7 +37,7 @@ const SingleProduct: NextPage<Props> = ({
                   />
                 </div>
               </section>
-              <section className="relative w-full mx-auto mt-5 md:ml-8 md:mt-0 md:w-3/4">
+              <section className="relative w-full mx-auto mt-5 lg:ml-8 lg:mt-0 lg:w-3/4">
                 <CraftStatus materials={materials} position="right-0 top-0" />
                 <label
                   htmlFor="custom-input-number"
@@ -80,7 +80,7 @@ export async function getStaticProps({ params }: { params: { id: String } }) {
 }
 
 export async function getStaticPaths() {
-  const products: IProduct[] = await getAPIData('/api/products');
+  const products: IProduct[] | [] = await getAPIData('/api/products');
 
   return {
     paths: products.map((product: IProduct) => {

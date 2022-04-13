@@ -24,16 +24,19 @@ function ProductForm({ id }: Props) {
   };
 
   return (
-    <div className="relative flex flex-row w-full h-10 mt-1 -mx-3 bg-transparent rounded-lg">
-      <Pill text="-" onClick={() => updateCounter(counter - 1)} />
-      <Input
-        type="number"
-        value={counter}
-        onChange={(e) => updateCounter(parseInt(e.target.value, 10))}
-      />
-      <Pill text="+" onClick={() => updateCounter(counter + 1)} />
-
-      <Button onClick={() => handleStoreQuantity(id, counter)}>Update</Button>
+    <div className="relative flex flex-col w-full mt-1 -mx-3 bg-transparent rounded-lg lg:h-10 lg:flex-row">
+      <div className="flex">
+        <Pill text="-" onClick={() => updateCounter(counter - 1)} />
+        <Input
+          type="number"
+          value={counter}
+          onChange={(e) => updateCounter(parseInt(e.target.value, 10))}
+        />
+        <Pill text="+" onClick={() => updateCounter(counter + 1)} />
+      </div>
+      <div className="mt-5 ml-3 lg:mt-0">
+        <Button onClick={() => handleStoreQuantity(id, counter)}>Update</Button>
+      </div>
     </div>
   );
 }

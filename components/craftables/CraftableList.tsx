@@ -38,9 +38,14 @@ function CraftableList({
 
           <div className="mt-5 text-right">
             <Button outline={false} onClick={() => addToCart(products)}>
-              Add Items to Checklist
+              Add to Checklist
             </Button>
-            <Button onClick={() => handleCrafting(id, products)}>Craft</Button>
+            <Button
+              className="ml-3"
+              onClick={() => handleCrafting(id, products)}
+            >
+              Craft
+            </Button>
           </div>
         </>
       )}

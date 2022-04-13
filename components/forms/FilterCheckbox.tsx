@@ -9,7 +9,7 @@ function FilterCheckbox({ name, onChange }: Props) {
   return (
     <label
       htmlFor={name}
-      className="relative px-4 py-2 ml-3 text-sm text-gray-600 bg-white rounded-sm"
+      className="relative px-2 py-2 mb-2 ml-3 text-xs text-gray-600 bg-white rounded-sm lg:px-4 lg:text-sm"
     >
       <input
         id={name}

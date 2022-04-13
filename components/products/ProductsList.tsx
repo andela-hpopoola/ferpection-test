@@ -22,14 +22,16 @@ function Products({ products }: IProductsList) {
 
   return (
     <div className="px-4 mx-auto sm:px-6 lg:px-8">
-      <section className="flex">
-        <div className="w-1/2">
-          <h1 className="mb-10 text-3xl font-bold text-sky-900">Store</h1>
+      <section className="flex flex-col lg:flex-row">
+        <div className="lg:w-1/2">
+          <h1 className="mb-5 text-3xl font-bold lg:mb-10 text-sky-900">
+            Store
+          </h1>
         </div>
-        <div className="flex justify-end w-1/2">
+        <div className="flex lg:justify-end lg:w-1/2">
           <div>
             <h4 className="mb-2 text-sm font-bold text-sky-900">Filter By</h4>
-            <div className="flex -ml-3">
+            <div className="flex flex-wrap -ml-3">
               {Object.values(Filter).map((key) => (
                 <FilterCheckbox key={key} name={key} onChange={updateFilter} />
               ))}
